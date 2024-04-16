@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Text,
+  Image,
 } from "react-native";
 import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 
@@ -34,6 +35,10 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require("../assets/logo.jpg")}
+        style={styles.profileImage}
+      />
       <Text style={styles.appName} onLayout={startLogoAnimation}>
         HelpHive
       </Text>
@@ -87,6 +92,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#121212",
+  },
+  profileImage: {
+    width: 180,
+    height: 180,
+    borderRadius: 140,
+    // marginRight: 16,
   },
   input: {
     width: "80%",

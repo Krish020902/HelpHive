@@ -56,7 +56,7 @@ const TaskDetailScreen = ({ route, navigation }) => {
       </View>
       <View style={styles.userInfoContainer}>
         <TouchableOpacity onPress={handlePhotoPress}>
-          <Image source={require("../assets/user3.png")} style={styles.photo} />
+          <Image source={require("../assets/user3.jpg")} style={styles.photo} />
         </TouchableOpacity>
         <View style={styles.userDetailsContainer}>
           <Text style={styles.labelText}>Name:</Text>
@@ -95,7 +95,7 @@ const TaskDetailScreen = ({ route, navigation }) => {
       >
         <View style={styles.photoModal}>
           <Image
-            source={require("../assets/user3.png")}
+            source={require("../assets/user3.jpg")}
             style={styles.enlargedPhoto}
           />
           <TouchableOpacity

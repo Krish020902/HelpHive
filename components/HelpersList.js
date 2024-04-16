@@ -15,43 +15,44 @@ const HelpersList = ({ onPress }) => {
       name: "MC Stan",
       rating: 8.5,
       profession: "Engineer",
-      photo: require("../assets/user1.png"),
+      photo: require("../assets/user1.jpg"),
     },
     {
       name: "Jackie Chan",
       rating: 6.2,
       profession: "Designer",
-      photo: require("../assets/user2.png"),
+      photo: require("../assets/user2.jpg"),
     },
     {
       name: "Lawrence Bishnoi",
       rating: 4.8,
       profession: "Developer",
-      photo: require("../assets/user3.png"),
+      photo: require("../assets/user3.jpg"),
     },
     {
       name: "Ramesh Kumar",
       rating: 7.3,
       profession: "Manager",
-      photo: require("../assets/user4.png"),
+
+      photo: require("../assets/user4.jpg"),
     },
     {
       name: "Mark Zuck",
       rating: 5.1,
       profession: "Analyst",
-      photo: require("../assets/user5.png"),
+      photo: require("../assets/user5.jpg"),
     },
     {
       name: "Dipendar Goyal",
       rating: 3.9,
       profession: "Consultant",
-      photo: require("../assets/user6.png"),
+      photo: require("../assets/user6.jpg"),
     },
     {
       name: "Ritesh Agarwal",
       rating: 6.7,
       profession: "Architect",
-      photo: require("../assets/user7.png"),
+      photo: require("../assets/user7.jpg"),
     },
     // Add more users as needed
   ];
