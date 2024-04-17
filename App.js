@@ -14,6 +14,7 @@ import TimeScreen from "./screens/TimeScreen";
 import WhoWeAre from "./screens/WhoWeAre";
 import TaskDetailScreen from "./screens/TaskDetailScreen";
 import ChatScreen from "./screens/ChatScreen";
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -97,6 +98,11 @@ const App = () => {
           <Stack.Screen
             name="ChatScreen"
             component={ChatScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgotPasswordScreen"
+            component={ForgotPasswordScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

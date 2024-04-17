@@ -23,10 +23,18 @@ const LoginScreen = ({ navigation }) => {
     console.log(phone, "-", password);
     navigation.navigate("HomeTabs");
   };
+  const handleForgotPassword = (navigation) => {
+    navigation.navigate("ForgotPasswordScreen");
+  };
 
   const handleSignUp = (navigation) => {
     // Navigate to the sign up screen
     navigation.navigate("Signup");
+  };
+
+  const handleLoginAsHelper = (navigation) => {
+    // Navigate to the helper homepage
+    // navigation.navigate("HelperHomepage");
   };
 
   const startLogoAnimation = () => {
@@ -45,29 +53,32 @@ const LoginScreen = ({ navigation }) => {
       <TextInput
         style={styles.input}
         placeholder="Mobile Number"
-        // value={state.mobile}
         onChangeText={(number) => setUserPhone(number)}
-        // onChangeText={(text) => dispatch({ type: "SET_MOBILE", payload: text })}
         placeholderTextColor="#aaa"
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry
-        // value={state.password}
         onChangeText={(pass) => setUserPassword(pass)}
-        // onChangeText={(text) =>
-        //   dispatch({ type: "SET_PASSWORD", payload: text })
-        // }
         placeholderTextColor="#aaa"
       />
-      <Text style={styles.forgotPassword}>Forgot Password?</Text>
+      <TouchableOpacity onPress={() => handleForgotPassword(navigation)}>
+        <Text style={styles.forgotPassword}>Forgot Password?</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() => handleLogin(navigation)}
         accessibilityLabel="Login button"
       >
         <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.button, styles.helperButton]}
+        onPress={() => handleLoginAsHelper(navigation)}
+        accessibilityLabel="Login as Helper button"
+      >
+        <Text style={styles.helperbuttonText}>Login as Helper</Text>
       </TouchableOpacity>
       <View style={styles.orContainer}>
         <View style={styles.line} />
@@ -97,7 +108,6 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     borderRadius: 140,
-    // marginRight: 16,
   },
   input: {
     width: "80%",
@@ -121,6 +131,7 @@ const styles = StyleSheet.create({
   forgotPassword: {
     color: "#aaa",
     marginBottom: 20,
+    left: 0,
     fontFamily: "sans-serif-medium",
   },
   orContainer: {
@@ -150,8 +161,25 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 20,
   },
+  helperbutton: {
+    backgroundColor: "#ff8c00",
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  helperButton: {
+    backgroundColor: "#1e1e1e",
+    borderWidth: 1,
+    borderColor: "#ff8c00",
+  },
   buttonText: {
     color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  helperbuttonText: {
+    color: "#ff8c00",
     fontWeight: "bold",
     fontSize: 16,
   },

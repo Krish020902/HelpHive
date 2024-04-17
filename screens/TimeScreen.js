@@ -1,13 +1,16 @@
 import React from "react";
 import { StyleSheet, View, StatusBar } from "react-native";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import {
+  createMaterialTopTabNavigator,
+  MaterialTopTabView,
+} from "@react-navigation/material-top-tabs";
 import ShortTermComponent from "./ShortTermComponent";
 import MediumTermComponent from "./MediumTermComponent";
 import LongTermComponent from "./LongTermComponent";
 
-const Tab = createMaterialTopTabNavigator();
-
 const TimeScreen = () => {
+  const Tab = createMaterialTopTabNavigator();
+
   return (
     <View style={styles.container}>
       <Tab.Navigator
@@ -25,9 +28,27 @@ const TimeScreen = () => {
           },
         }}
       >
-        <Tab.Screen name="Short Term" component={ShortTermComponent} />
-        <Tab.Screen name="Medium Term" component={MediumTermComponent} />
-        <Tab.Screen name="Long Term" component={LongTermComponent} />
+        <Tab.Screen
+          name="Short Term"
+          component={ShortTermComponent}
+          options={{
+            tabBarComponent: MaterialTopTabView,
+          }}
+        />
+        <Tab.Screen
+          name="Medium Term"
+          component={MediumTermComponent}
+          options={{
+            tabBarComponent: MaterialTopTabView,
+          }}
+        />
+        <Tab.Screen
+          name="Long Term"
+          component={LongTermComponent}
+          options={{
+            tabBarComponent: MaterialTopTabView,
+          }}
+        />
       </Tab.Navigator>
     </View>
   );
