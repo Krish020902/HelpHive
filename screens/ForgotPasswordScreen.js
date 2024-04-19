@@ -1,4 +1,3 @@
-// ForgotPasswordScreen.js
 import React, { useState } from "react";
 import {
   View,
@@ -9,25 +8,44 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import OTPInputView from "react-native-otp-form";
+import OTPInputView from "@twotalltotems/react-native-otp-input";
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOTP] = useState("");
   const [showOTPInput, setShowOTPInput] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendOTP = () => {
-    // Implement logic to send OTP to the provided mobile number
-    console.log("Sent OTP to:", mobileNumber);
-    setShowOTPInput(true);
+  const handleSendOTP = async () => {
+    try {
+      // setIsLoading(true);
+      // Implement logic to send OTP to the provided mobile number
+      console.log("Sent OTP to:", mobileNumber);
+      // setOTP("123456"); // Replace with the actual OTP
+      setShowOTPInput(true);
+      // Keyboard.dismiss();
+    } catch (error) {
+      Alert.alert("Error", "Failed to send OTP. Please try again.");
+    } finally {
+      // setIsLoading(false);
+    }
   };
 
-  const handleLogin = () => {
-    // Implement logic to validate OTP and reset the password
-    console.log("Logging in with OTP:", otp);
-    navigation.navigate("HomeTabs");
+  const handleLogin = async () => {
+    try {
+      // setIsLoading(true);
+      // Implement logic to validate OTP and reset the password
+      console.log("Logging in with OTP:", otp);
+      // If OTP is valid, navigate to HomeTabs
+      navigation.navigate("HomeTabs");
+    } catch (error) {
+      Alert.alert("Error", "Invalid OTP. Please try again.");
+    } finally {
+      // setIsLoading(false);
+    }
   };
 
   const handleBack = () => {
@@ -35,46 +53,57 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={handleBack} style={{ marginTop: 30 }}>
-          <Ionicons name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.contentContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Mobile Number"
-          value={mobileNumber}
-          onChangeText={(value) => {
-            setMobileNumber(value.slice(0, 10));
-          }}
-          placeholderTextColor="#aaa"
-          keyboardType="phone-pad"
-          maxLength={10}
-        />
-        <TouchableOpacity style={styles.button} onPress={handleSendOTP}>
-          <Text style={styles.buttonText}>Send OTP</Text>
-        </TouchableOpacity>
-
-        {showOTPInput && (
-          <View style={styles.otpContainer}>
-            <OTPInputView
-              pinCount={6}
-              code={otp}
-              keyboardType="number-pad"
-              onCodeChanged={(code) => setOTP(code)}
-              autoFocusOnLoad
-              codeInputFieldStyle={styles.otpInputField}
-              codeInputHighlightStyle={styles.otpInputFieldHighlight}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
-    </SafeAreaView>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={handleBack} style={{ marginTop: 30 }}>
+            <Ionicons name="arrow-back" size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.contentContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Mobile Number"
+            value={mobileNumber}
+            onChangeText={(value) => {
+              setMobileNumber(value.replace(/[^0-9]/g, "").slice(0, 10)); // Remove non-numeric characters and limit to 10 digits
+            }}
+            placeholderTextColor="#aaa"
+            keyboardType="phone-pad"
+            maxLength={10}
+            // editable={!isLoading}
+          />
+          <TouchableOpacity
+            style={[styles.button && styles.disabledButton]}
+            onPress={handleSendOTP}
+            // disabled={isLoading}
+          >
+            <Text style={styles.buttonText}>Send OTP</Text>
+          </TouchableOpacity>
+          {showOTPInput && (
+            <View style={styles.otpContainer}>
+              <OTPInputView
+                pinCount={6}
+                code={otp}
+                onCodeChanged={setOTP}
+                autoFocusOnLoad
+                codeInputFieldStyle={styles.otpInput}
+                codeInputHighlightStyle={styles.otpInputHighlight}
+                // editable={!isLoading}
+                keyboardAppearance="dark"
+              />
+              <TouchableOpacity
+                style={[styles.button && styles.disabledButton]}
+                onPress={handleLogin}
+                // disabled={isLoading}
+              >
+                <Text style={styles.buttonText}>Login</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -110,17 +139,17 @@ const styles = StyleSheet.create({
   otpContainer: {
     marginBottom: 20,
   },
-  otpInputField: {
+  otpInput: {
     width: 40,
     height: 50,
     borderWidth: 1,
-    borderColor: "#ff8c00",
+    borderColor: "#aaa",
     color: "#fff",
     fontSize: 24,
     fontFamily: "sans-serif-medium",
     textAlign: "center",
   },
-  otpInputFieldHighlight: {
+  otpInputHighlight: {
     borderColor: "#ff8c00",
   },
   button: {
@@ -130,6 +159,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     borderRadius: 8,
     marginBottom: 20,
+  },
+  disabledButton: {
+    opacity: 0.5,
   },
   buttonText: {
     alignSelf: "center",
