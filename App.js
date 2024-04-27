@@ -2,8 +2,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FontAwesome } from "@expo/vector-icons";
 
 import { UserProvider } from "./context/UserContext";
 import LoginScreen from "./screens/LoginScreen";
@@ -15,50 +13,12 @@ import WhoWeAre from "./screens/WhoWeAre";
 import TaskDetailScreen from "./screens/TaskDetailScreen";
 import ChatScreen from "./screens/ChatScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
-
+import OTPScreen from "./screens/OTPScreen";
+import HomeTabs from "./screens/HomeTabs";
+import HelperScreen from "./screens/HelperScreen";
+import AddTaskScreen from "./screens/AddTaskScreen";
+import BookedTaskDetailScreen from "./screens/BookedTaskDetailScreen";
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-
-const HomeTabs = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: { backgroundColor: "#2e2e2e" },
-        tabBarInactiveTintColor: "#ffffff",
-        tabBarActiveTintColor: "#ff8c00",
-      }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="home" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Time"
-        component={TimeScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="clock-o" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" size={24} color={color} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-};
 
 const App = () => {
   return (
@@ -103,6 +63,26 @@ const App = () => {
           <Stack.Screen
             name="ForgotPasswordScreen"
             component={ForgotPasswordScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="OTPScreen"
+            component={OTPScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="HelperScreen"
+            component={HelperScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AddTaskScreen"
+            component={AddTaskScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="BookedTaskDetailScreen"
+            component={BookedTaskDetailScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLoginAsHelper = (navigation) => {
     // Navigate to the helper homepage
-    // navigation.navigate("HelperHomepage");
+    navigation.navigate("HelperScreen");
   };
 
   const startLogoAnimation = () => {
@@ -131,9 +131,10 @@ const styles = StyleSheet.create({
   forgotPassword: {
     color: "#aaa",
     marginBottom: 20,
-    left: 0,
+    left: -90,
     fontFamily: "sans-serif-medium",
   },
+
   orContainer: {
     flexDirection: "row",
     alignItems: "center",

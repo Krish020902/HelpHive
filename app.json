@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo1.jpg",
         "backgroundColor": "#ffffff"
       },
       "package": "com.krish_m.HelpHive"

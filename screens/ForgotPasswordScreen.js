@@ -6,45 +6,23 @@ import {
   StyleSheet,
   Text,
   SafeAreaView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Alert,
+  Image,
 } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import OTPInputView from "@twotalltotems/react-native-otp-input";
+import { Ionicons } from "@expo/vector-icons";
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [mobileNumber, setMobileNumber] = useState("");
-  const [otp, setOTP] = useState("");
-  const [showOTPInput, setShowOTPInput] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isValidNumber, setIsValidNumber] = useState(false);
 
-  const handleSendOTP = async () => {
-    try {
-      // setIsLoading(true);
-      // Implement logic to send OTP to the provided mobile number
-      console.log("Sent OTP to:", mobileNumber);
-      // setOTP("123456"); // Replace with the actual OTP
-      setShowOTPInput(true);
-      // Keyboard.dismiss();
-    } catch (error) {
-      Alert.alert("Error", "Failed to send OTP. Please try again.");
-    } finally {
-      // setIsLoading(false);
-    }
+  const handleMobileNumberChange = (text) => {
+    const cleanText = text.replace(/[^0-9]/g, "");
+    setMobileNumber(cleanText);
+    setIsValidNumber(cleanText.length === 10);
   };
 
-  const handleLogin = async () => {
-    try {
-      // setIsLoading(true);
-      // Implement logic to validate OTP and reset the password
-      console.log("Logging in with OTP:", otp);
-      // If OTP is valid, navigate to HomeTabs
-      navigation.navigate("HomeTabs");
-    } catch (error) {
-      Alert.alert("Error", "Invalid OTP. Please try again.");
-    } finally {
-      // setIsLoading(false);
+  const handleGetOTP = () => {
+    if (isValidNumber) {
+      navigation.navigate("OTPScreen", { mobileNumber });
     }
   };
 
@@ -53,57 +31,51 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={handleBack} style={{ marginTop: 30 }}>
-            <Ionicons name="arrow-back" size={24} color="#fff" />
-          </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={handleBack}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.logoContainer}>
+        <Image source={require("../assets/logo.jpg")} style={styles.logo} />
+        <Text style={styles.appName}>HelpHive</Text>
+      </View>
+      <View style={styles.contentContainer}>
+        <View style={styles.textContainer}>
+          <Text style={styles.welcomeText}>Welcome,</Text>
         </View>
-        <View style={styles.contentContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Mobile Number"
-            value={mobileNumber}
-            onChangeText={(value) => {
-              setMobileNumber(value.replace(/[^0-9]/g, "").slice(0, 10)); // Remove non-numeric characters and limit to 10 digits
-            }}
-            placeholderTextColor="#aaa"
-            keyboardType="phone-pad"
-            maxLength={10}
-            // editable={!isLoading}
-          />
-          <TouchableOpacity
-            style={[styles.button && styles.disabledButton]}
-            onPress={handleSendOTP}
-            // disabled={isLoading}
+        <Text style={styles.subheading}>
+          Enter your mobile number to recover password
+        </Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Mobile Number"
+          placeholderTextColor={"white"}
+          value={mobileNumber}
+          onChangeText={handleMobileNumberChange}
+          keyboardType="phone-pad"
+          maxLength={10}
+        />
+        <Text style={styles.otpMessage}>
+          OTP message will be sent to your phone number
+        </Text>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            isValidNumber ? styles.validButton : styles.invalidButton,
+          ]}
+          onPress={handleGetOTP}
+          disabled={!isValidNumber}
+        >
+          <Text
+            style={isValidNumber ? styles.buttonText : styles.invalidbuttonText}
           >
-            <Text style={styles.buttonText}>Send OTP</Text>
-          </TouchableOpacity>
-          {showOTPInput && (
-            <View style={styles.otpContainer}>
-              <OTPInputView
-                pinCount={6}
-                code={otp}
-                onCodeChanged={setOTP}
-                autoFocusOnLoad
-                codeInputFieldStyle={styles.otpInput}
-                codeInputHighlightStyle={styles.otpInputHighlight}
-                // editable={!isLoading}
-                keyboardAppearance="dark"
-              />
-              <TouchableOpacity
-                style={[styles.button && styles.disabledButton]}
-                onPress={handleLogin}
-                // disabled={isLoading}
-              >
-                <Text style={styles.buttonText}>Login</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+            Get OTP
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -113,16 +85,47 @@ const styles = StyleSheet.create({
     backgroundColor: "#121212",
   },
   headerContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    padding: 16,
-    zIndex: 1,
+    marginTop: 30,
+    marginLeft: 16,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  logoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 16,
+  },
+  logo: {
+    width: 140,
+    height: 140,
+  },
+  appName: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#ff8c00",
+    marginLeft: 8,
   },
   contentContainer: {
     flex: 1,
-    justifyContent: "center",
+    marginTop: 40,
     alignItems: "center",
+  },
+  textContainer: {
+    alignSelf: "flex-start", // Align the text to the left
+    marginLeft: 35, // Adjust the margin as needed
+  },
+  welcomeText: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "bold",
+    marginBottom: 7,
+  },
+  subheading: {
+    marginLeft: 20,
+    fontSize: 16,
+    color: "white",
+    // textAlign: "center",
+    marginBottom: 32,
   },
   input: {
     width: "80%",
@@ -136,36 +139,31 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontFamily: "sans-serif-medium",
   },
-  otpContainer: {
-    marginBottom: 20,
-  },
-  otpInput: {
-    width: 40,
-    height: 50,
-    borderWidth: 1,
-    borderColor: "#aaa",
-    color: "#fff",
-    fontSize: 24,
-    fontFamily: "sans-serif-medium",
-    textAlign: "center",
-  },
-  otpInputHighlight: {
-    borderColor: "#ff8c00",
+  otpMessage: {
+    color: "grey",
+    marginBottom: 32,
   },
   button: {
-    marginTop: 20,
-    backgroundColor: "#ff8c00",
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 8,
-    marginBottom: 20,
+    // alignSelf: "flex-end", // Align the button to the bottom
+    marginBottom: 20, // Add margin bottom to separate from input field
   },
-  disabledButton: {
-    opacity: 0.5,
+  validButton: {
+    backgroundColor: "#ff8c00",
+  },
+  invalidButton: {
+    borderWidth: 1,
+    borderColor: "#ff8c00",
   },
   buttonText: {
-    alignSelf: "center",
     color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  invalidbuttonText: {
+    color: "#ff8c00",
     fontWeight: "bold",
     fontSize: 16,
   },

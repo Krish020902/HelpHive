@@ -10,7 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import ChatScreen from "./ChatScreen.js";
 
-const TaskDetailScreen = ({ route, navigation }) => {
+const BookedTaskDetailScreen = ({ route, navigation }) => {
   const { taskName } = route.params;
   const [isPhotoModalVisible, setIsPhotoModalVisible] = useState(false);
 
@@ -85,7 +85,7 @@ const TaskDetailScreen = ({ route, navigation }) => {
           <Text style={styles.bookButtonText}>Chat</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.bookButton}>
-          <Text style={styles.bookButtonText}>Book</Text>
+          <Text style={styles.bookButtonText}>Book again</Text>
         </TouchableOpacity>
       </View>
       <Modal
@@ -227,4 +227,4 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
 });
-export default TaskDetailScreen;
+export default BookedTaskDetailScreen;
