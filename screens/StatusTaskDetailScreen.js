@@ -10,8 +10,9 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import ChatScreen from "./ChatScreen.js";
 
-const TaskDetailScreen = ({ route, navigation }) => {
-  const { taskName } = route.params;
+const StatusTaskDetailScreen = ({ route, navigation }) => {
+  const { taskName, status } = route.params;
+
   const [isPhotoModalVisible, setIsPhotoModalVisible] = useState(false);
 
   // Dummy user information
@@ -45,14 +46,37 @@ const TaskDetailScreen = ({ route, navigation }) => {
   const handleBack = () => {
     navigation.goBack();
   };
+  if (status === "Pending") {
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={handleBack}>
+            <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+          </TouchableOpacity>
+          <Text style={styles.headerText}>Helper Details</Text>
+        </View>
+        <View style={styles.pendingContainer}>
+          <Image
+            source={require("../assets/garfield.gif")}
+            style={{ width: 200, height: 162 }}
+          />
 
+          <Text style={styles.pendingText}>Helpers are on their way</Text>
+
+          <TouchableOpacity style={styles.cancelButton}>
+            <Text style={styles.cancelButtonText}>Cancel Task</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={handleBack}>
           <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Work Details</Text>
+        <Text style={styles.headerText}>Helper Details</Text>
       </View>
       <View style={styles.userInfoContainer}>
         <TouchableOpacity onPress={handlePhotoPress}>
@@ -84,8 +108,8 @@ const TaskDetailScreen = ({ route, navigation }) => {
         >
           <Text style={styles.bookButtonText}>Chat</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bookButton}>
-          <Text style={styles.bookButtonText}>Book</Text>
+        <TouchableOpacity style={styles.cancelButton}>
+          <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
       <Modal
@@ -221,10 +245,41 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
   },
+  cancelButton: {
+    backgroundColor: "#444444",
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    alignItems: "center",
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: "#D64646",
+  },
   bookButtonText: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#FFFFFF",
   },
+  cancelButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#D64646",
+  },
+  pendingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  pendingText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    marginTop: 16,
+    marginBottom: 15,
+  },
+  loadingGif: {
+    width: 200,
+    height: 200,
+  },
 });
-export default TaskDetailScreen;
+export default StatusTaskDetailScreen;

@@ -8,7 +8,7 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   const handleBecomeHelper = () => {
-    navigation.navigate("BecomeHelper");
+    navigation.navigate("BecomeHelperScreen");
   };
   const handleLogout = () => {
     navigation.navigate("Login");

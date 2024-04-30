@@ -18,6 +18,8 @@ import HomeTabs from "./screens/HomeTabs";
 import HelperScreen from "./screens/HelperScreen";
 import AddTaskScreen from "./screens/AddTaskScreen";
 import BookedTaskDetailScreen from "./screens/BookedTaskDetailScreen";
+import StatusTaskDetailScreen from "./screens/StatusTaskDetailScreen";
+import BecomeHelperScreen from "./screens/BecomeHelperScreen";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -83,6 +85,16 @@ const App = () => {
           <Stack.Screen
             name="BookedTaskDetailScreen"
             component={BookedTaskDetailScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="StatusTaskDetailScreen"
+            component={StatusTaskDetailScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="BecomeHelperScreen"
+            component={BecomeHelperScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

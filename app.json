@@ -4,7 +4,7 @@
     "slug": "HelpHive",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo1.jpg",
+    "icon": "./assets/logo.jpg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/logo.jpg",
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo1.jpg",
+        "foregroundImage": "./assets/logo.jpg",
         "backgroundColor": "#ffffff"
       },
       "package": "com.krish_m.HelpHive"

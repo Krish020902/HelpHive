@@ -13,23 +13,19 @@ import { Ionicons } from "@expo/vector-icons";
 const ForgotPasswordScreen = ({ navigation }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [isValidNumber, setIsValidNumber] = useState(false);
-
   const handleMobileNumberChange = (text) => {
     const cleanText = text.replace(/[^0-9]/g, "");
     setMobileNumber(cleanText);
     setIsValidNumber(cleanText.length === 10);
   };
-
   const handleGetOTP = () => {
     if (isValidNumber) {
       navigation.navigate("OTPScreen", { mobileNumber });
     }
   };
-
   const handleBack = () => {
     navigation.goBack();
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -41,6 +37,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
         <Image source={require("../assets/logo.jpg")} style={styles.logo} />
         <Text style={styles.appName}>HelpHive</Text>
       </View>
+
       <View style={styles.contentContainer}>
         <View style={styles.textContainer}>
           <Text style={styles.welcomeText}>Welcome,</Text>
@@ -74,18 +71,25 @@ const ForgotPasswordScreen = ({ navigation }) => {
             Get OTP
           </Text>
         </TouchableOpacity>
+        <Image
+          source={require("../assets/garfieldpass.jpg")}
+          style={{
+            height: 200,
+            width: 200,
+            alignSelf: "center",
+          }}
+        />
       </View>
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#121212",
   },
   headerContainer: {
-    marginTop: 30,
+    marginTop: 50,
     marginLeft: 16,
     flexDirection: "row",
     alignItems: "center",
@@ -93,11 +97,13 @@ const styles = StyleSheet.create({
   logoContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 16,
+    justifyContent: "center",
+    marginBottom: 30,
   },
   logo: {
-    width: 140,
-    height: 140,
+    width: 100,
+    height: 100,
+    borderRadius: 20,
   },
   appName: {
     fontSize: 30,

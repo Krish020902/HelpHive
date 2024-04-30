@@ -5,7 +5,9 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  FlatList,
   Switch,
+  Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-notifications";
@@ -17,17 +19,36 @@ const AddTaskScreen = ({ navigation }) => {
   const [hourlyPrice, setHourlyPrice] = useState("");
   const [taskPrice, setTaskPrice] = useState("");
   const [agreePrivacy, setAgreePrivacy] = useState(false);
+  const [duration, setDuration] = useState("");
+  const [modalVisible, setModalVisible] = useState(true);
+
   const toastRef = useRef(null);
 
   const handleGoBack = () => {
     navigation.goBack();
   };
+  const durationOptions = [
+    { label: "Short Term (5-10 mins)", value: "short" },
+    { label: "Medium Term (1-2 hrs)", value: "medium" },
+    { label: "Long Term (3-4 months)", value: "long" },
+  ];
 
   const handleToggleTaskMethod = () => {
     setIsHourlyBased(!isHourlyBased);
     setHourlyPrice("");
     setTaskPrice("");
   };
+  const renderDurationOption = ({ item }) => (
+    <TouchableOpacity
+      style={styles.durationOption}
+      onPress={() => {
+        setDuration(item.value);
+        setModalVisible(false);
+      }}
+    >
+      <Text style={styles.durationOptionText}>{item.label}</Text>
+    </TouchableOpacity>
+  );
 
   const handleSubmit = () => {
     if (taskName.trim() === "") {
@@ -170,6 +191,35 @@ const AddTaskScreen = ({ navigation }) => {
             />
           </View>
         )}
+        <Text style={styles.labelText}>Duration</Text>
+        <TouchableOpacity
+          style={styles.durationButton}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.durationButtonText}>
+            {duration ? duration : "Task Duration"}
+          </Text>
+          <Ionicons name="chevron-down" size={18} color="#CCCCCC" />
+        </TouchableOpacity>
+        <Modal
+          visible={modalVisible}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <TouchableOpacity
+            style={styles.modalOverlay}
+            onPress={() => setModalVisible(false)}
+          >
+            <View style={styles.modalContent}>
+              <FlatList
+                data={durationOptions}
+                renderItem={renderDurationOption}
+                keyExtractor={(item) => item.value}
+              />
+            </View>
+          </TouchableOpacity>
+        </Modal>
         <View style={styles.privacyContainer}>
           <Switch
             value={agreePrivacy}
@@ -220,6 +270,47 @@ const styles = StyleSheet.create({
     padding: 12,
     color: "#FFFFFF",
     marginBottom: 16,
+  },
+  durationButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#2A2A2A",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 16,
+  },
+  durationButtonText: {
+    flex: 1,
+    color: "#CCCCCC",
+    fontSize: 16,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "#2A2A2A",
+    borderRadius: 8,
+    padding: 16,
+    width: "80%",
+  },
+  durationOption: {
+    backgroundColor: "#1E1E1E",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 8,
+  },
+  durationOptionText: {
+    color: "#CCCCCC",
+    fontSize: 16,
   },
   multilineInput: {
     height: 100,

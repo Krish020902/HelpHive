@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
+import Timer from "../components/Timer";
 
 const OTPScreen = ({ navigation, route }) => {
   const [otp, setOTP] = useState("");
@@ -35,6 +36,10 @@ const OTPScreen = ({ navigation, route }) => {
         <Image source={require("../assets/logo.jpg")} style={styles.logo} />
         <Text style={styles.appName}>HelpHive</Text>
       </View>
+      <Image
+        source={require("../assets/garfieldotp.jpg")}
+        style={{ height: 150, width: 150, alignSelf: "center" }}
+      />
       <View style={styles.contentContainer}>
         <Text style={styles.subheading}>
           Enter verification code sent to your registered number
@@ -49,7 +54,10 @@ const OTPScreen = ({ navigation, route }) => {
           codeInputHighlightStyle={styles.otpInputHighlight}
           keyboardAppearance="dark"
         />
-        <Text style={styles.resendOTPText}>Resend OTP in: 00:59</Text>
+        <View style={styles.resend}>
+          <Text style={styles.resendOTPText}>Resend OTP in: </Text>
+          <Timer />
+        </View>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -64,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#121212",
   },
   headerContainer: {
-    marginTop: 30,
+    marginTop: 45,
     marginLeft: 16,
     flexDirection: "row",
     alignItems: "center",
@@ -74,11 +82,13 @@ const styles = StyleSheet.create({
 
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 16,
+    justifyContent: "center",
+    marginBottom: 20,
   },
   logo: {
-    width: 140,
-    height: 140,
+    width: 70,
+    height: 70,
+    borderRadius: 20,
   },
   appName: {
     fontSize: 30,
@@ -88,7 +98,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    marginTop: 40,
+    marginTop: 15,
 
     // justifyContent: "center",
     alignItems: "center",
@@ -97,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#fff",
     textAlign: "center",
-    marginBottom: 32,
+    marginBottom: 13,
     // padding: 1,
   },
   otpInput: {
@@ -118,6 +128,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
 
     justifyContent: "flex-start",
+  },
+  resend: {
+    flexDirection: "row",
   },
   button: {
     position: "absolute",

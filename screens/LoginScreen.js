@@ -63,7 +63,10 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={(pass) => setUserPassword(pass)}
         placeholderTextColor="#aaa"
       />
-      <TouchableOpacity onPress={() => handleForgotPassword(navigation)}>
+      <TouchableOpacity
+        onPress={() => handleForgotPassword(navigation)}
+        accessibilityLabel="Forgot Password"
+      >
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -105,9 +108,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#121212",
   },
   profileImage: {
-    width: 180,
-    height: 180,
-    borderRadius: 140,
+    width: 100,
+    height: 100,
+    borderRadius: 20,
   },
   input: {
     width: "80%",
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
   forgotPassword: {
     color: "#aaa",
     marginBottom: 20,
-    left: -90,
+    marginRight: 180,
     fontFamily: "sans-serif-medium",
   },
 
